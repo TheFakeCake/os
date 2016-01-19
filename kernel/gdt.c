@@ -91,7 +91,7 @@ int exec_task(char *fileName)
 	}
 
 	// Copying the user program into the task memory
-	if (file_read(fileName, (uint32_t*)tasks[i].addr) == -1)
+	if (file_read(fileName, (uint32_t*)tasks[i].memory) == -1)
 	{
 		return -1;
 	}
@@ -117,12 +117,11 @@ void init_task(int i)
 	tasks[i].free = 1;
 
 	// Define code and data segments in the LDT; both segments are overlapping
-	tasks[i].addr = TASKS_MEMORY_OFFSET + i * TASKS_MEMORY_SIZE;
 	int ldt_code_idx = 0;
 	int ldt_data_idx = 1;
 	//uint limit = 0x10000; // limit of 64KB
-	tasks[i].ldt[ldt_code_idx] = gdt_make_code_segment(tasks[i].addr, TASKS_MEMORY_SIZE / 4096, DPL_USER);  // code
-	tasks[i].ldt[ldt_data_idx] = gdt_make_data_segment(tasks[i].addr, TASKS_MEMORY_SIZE / 4096, DPL_USER);  // data + stack
+	tasks[i].ldt[ldt_code_idx] = gdt_make_code_segment((uint32_t)tasks[i].memory, TASKS_MEMORY_SIZE / 4096, DPL_USER);  // code
+	tasks[i].ldt[ldt_data_idx] = gdt_make_data_segment((uint32_t)tasks[i].memory, TASKS_MEMORY_SIZE / 4096, DPL_USER);  // data + stack
 
 	// Initialize the TSS fields
 	// The LDT selector must point to the task's LDT

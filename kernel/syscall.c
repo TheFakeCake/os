@@ -166,5 +166,5 @@ int syscall_handler(syscall_t nb, uint32_t arg1, uint32_t arg2, uint32_t arg3, u
     {
         return -1;
     }
-    return syscall_functions[nb](arg1, arg2, arg3, arg4, get_task(caller_tss_selector)->addr);
+    return syscall_functions[nb](arg1, arg2, arg3, arg4, (uint32_t)get_task(caller_tss_selector)->memory);
 }

@@ -7,7 +7,6 @@
 #define MAX_NB_TASKS 8
 #define TASKS_FIRST_GDT_ENTRY   4
 #define TASKS_MEMORY_SIZE 	    0x100000
-#define TASKS_MEMORY_OFFSET     0x800000
 
 // Structure of a GDT descriptor. There are 2 types of descriptors: segments and TSS.
 // Section 3.4.5 of Intel 64 & IA32 architectures software developer's manual describes
@@ -33,13 +32,13 @@ typedef struct __attribute__((packed)) gdt_entry_st {
 
 
 typedef struct __attribute__((packed)) task_st {
-	tss_t 		tss;
-	gdt_entry_t ldt[2];
-	uint32_t	addr;
-	uint8_t 	kernel_stack[65536];
-	uint32_t	tss_selector;
-	uint32_t	ldt_selector;
-	uint8_t		free;
+    tss_t 		tss;
+    gdt_entry_t ldt[2];
+    uint8_t     memory[TASKS_MEMORY_SIZE];
+    uint8_t 	kernel_stack[65536];
+    uint32_t	tss_selector;
+    uint32_t	ldt_selector;
+    uint8_t		free;
 } task_t;
 
 // Structure describing a pointer to the GDT descriptor table.
