@@ -29,6 +29,7 @@ void main()
         set_cursor(23,3);
         printf("Au tour du joueur %d                  ", joueur);
 
+        // Recupere et place (si possible) une X ou un O la ou le joueur veux jouer
         while(true)
         {
             char c = getc();
@@ -48,8 +49,11 @@ void main()
         }
 
         nb_coup++;
+
+        // Affichage de l'etat du jeux
         printGame(jeu);
 
+        //Verification de victoire => réinitialiser le jeux
         if(verifieGagner(jeu))
         {
             set_cursor(23, 3);
@@ -78,6 +82,8 @@ void main()
                 }
             }
         }
+
+        //Si fin du jeux sur une egalite => réinitialiser le jeux 
         if(nb_coup == 9)
         {
             set_cursor(23, 3);

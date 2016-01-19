@@ -12,7 +12,7 @@ void main()
 
     while(true)
     {
-        printf("\\kernel $ :");
+        printf("[ shell ] $ ");
         //Lecture des entrees
         gets(bufferInput);
 
@@ -25,8 +25,8 @@ void main()
         {
             if(nb_args != 1)
             {
-                puts("\tErreur d'arguments\n");
-                puts("\tls : liste tous les fichiers du systeme de fichiers\n");
+                puts("Erreur d'arguments\n");
+                puts("ls : liste tous les fichiers du systeme de fichiers\n");
             }
             else
             {
@@ -36,7 +36,7 @@ void main()
                 while (get_next_file(name, &it))
                 {
                     get_stat(name, &stat);
-                    printf("\t%s\t%d [Bytes]\n", name, stat.size);
+                    printf("%s\t%d [Bytes]\n", name, stat.size);
                 }
             }
             continue;
@@ -48,15 +48,15 @@ void main()
         {
             if(nb_args != 2)
             {
-                puts("\tErreur d'arguments\n");
-                puts("\tcat <file> : affiche le contenu du fichier file\n");
+                puts("Erreur d'arguments\n");
+                puts("cat <file> : affiche le contenu du fichier file\n");
             }
             else
             {
                 stat_t st;
                 if(get_stat(tab_args[1], &st) == -1)
                 {
-                    printf("\tLe fichier %s n'existe pas\n", tab_args[1]);
+                    printf("Le fichier %s n'existe pas\n", tab_args[1]);
                 }
                 else
                 {
@@ -75,14 +75,14 @@ void main()
         {
             if(nb_args != 2)
             {
-                puts("\tErreur d'arguments\n");
-                puts("\trm <file> : efface le fichier file\n");
+                puts("Erreur d'arguments\n");
+                puts("rm <file> : efface le fichier file\n");
             }
             else
             {
                 if(remove_file(tab_args[1]) == -1)
                 {
-                    printf("\tLe fichier %s n'existe pas\n", tab_args[1]);
+                    printf("Le fichier %s n'existe pas\n", tab_args[1]);
                 }
             }
             continue;
@@ -94,8 +94,8 @@ void main()
         {
             if(nb_args != 2)
             {
-                puts("\tErreur d'arguments\n");
-                puts("\trun <file> : execute le fichier file\n");
+                puts("Erreur d'arguments\n");
+                puts("run <file> : execute le fichier file\n");
             }
             else
             {
@@ -110,12 +110,12 @@ void main()
         {
             if(nb_args != 1)
             {
-                puts("\tErreur d'arguments\n");
-                puts("\tticks : affiche le nombre de ticks courant\n");
+                puts("Erreur d'arguments\n");
+                puts("ticks : affiche le nombre de ticks courant\n");
             }
             else
             {
-                printf("\t%d\n", get_ticks());
+                printf("%d\n", get_ticks());
             }
             continue;
         }
@@ -126,8 +126,8 @@ void main()
         {
             if(nb_args != 2)
             {
-                puts("\tErreur d'arguments\n");
-                puts("\tsleep <N> : attend pendant N milli-secondes\n");
+                puts("Erreur d'arguments\n");
+                puts("sleep <N> : attend pendant N milli-secondes\n");
             }
             else
             {
@@ -142,8 +142,8 @@ void main()
         {
             if(nb_args != 1)
             {
-                puts("\tErreur d'arguments\n");
-                puts("\texit : sort du shell (meme comportement que la commande exit de bash)\n");
+                puts("Erreur d'arguments\n");
+                puts("exit : sort du shell (meme comportement que la commande exit de bash)\n");
             }
             else
             {
@@ -166,14 +166,14 @@ void main()
 
 void print_help()
 {
-    puts("\tls : liste tous les fichiers du systeme de fichiers\n");
-    puts("\tcat <file> : affiche le contenu du fichier file\n");
-    puts("\trm <file> : efface le fichier file\n");
-    puts("\trun <file> : execute le fichier file\n");
-    puts("\tticks : affiche le nombre de ticks courant\n");
-    puts("\tsleep <N> : attend pendant N milli-secondes\n");
-    puts("\texit : sort du shell (meme comportement que la commande exit de bash)\n");
-    puts("\thelp : affiche la liste des commandes disponibles\n");
+    puts("ls : liste tous les fichiers du systeme de fichiers\n");
+    puts("cat <file> : affiche le contenu du fichier file\n");
+    puts("rm <file> : efface le fichier file\n");
+    puts("run <file> : execute le fichier file\n");
+    puts("ticks : affiche le nombre de ticks courant\n");
+    puts("sleep <N> : attend pendant N milli-secondes\n");
+    puts("exit : sort du shell (meme comportement que la commande exit de bash)\n");
+    puts("help : affiche la liste des commandes disponibles\n");
 }
 
 int get_nb_args(char* args)
