@@ -40,13 +40,6 @@ void exit()
 }
 
 //Fonctions sur les chaînes de caractères :
-uint strlen(char *s)
-{
-	uint32_t i;
-	for (i = 0; s[i] != '\0'; i++) ;
-    return i;
-}
-
 uint atoi(char *s)
 {
 	uint res = 0;
@@ -106,46 +99,6 @@ char* itoa(int value, char *str, int base)
 		}
 	}
 	return str;
-}
-
-int strcmp(char * str1, char * str2)
-{
-    int len_str1 = strlen(str1);
-    int len_str2 = strlen(str2);
-
-    if(len_str1 == len_str2)
-    {
-        for (int i = 0; i < len_str2; ++i)
-        {
-            if(str1[i] != str2[i])
-            {
-                return 0;
-            }
-        }
-        return 1;
-    }
-    return 0;
-}
-
-void split(char* str, char c, char* tab_str, int nb_str, int size_str)
-{
-    int j = 0;
-    for (int i = 0; i < nb_str; ++i)
-    {
-        int k = 0;
-        while(str[j] != 0)
-        {
-        	if(str[j] == c)
-        	{
-        		j++;
-        		break;
-        	}
-            tab_str[i*size_str + k] = str[j];
-            j++;
-            k++;
-        }
-        tab_str[i*size_str + k] = 0; 
-    }
 }
 
 //Fonctions d'entrées/sorties :

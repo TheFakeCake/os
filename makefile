@@ -11,7 +11,7 @@ FILE_SYSTEM=file_system.img
 
 MODE=normal
 
-.PHONY: clean run kernel doc tools user
+.PHONY: clean run kernel doc tools user common
 
 $(OUTPUT).iso: kernel grub/grub.cfg $(OUTPUT)/boot/grub
 	cp grub/grub.cfg $(OUTPUT)/boot/grub/
@@ -51,6 +51,9 @@ tools:
 user:
 	@make -C user
 
+common:
+	@make -C common
+
 run: $(OUTPUT).iso $(FILE_SYSTEM)
 	qemu-system-i386 -cdrom $< -hda $(FILE_SYSTEM)
 
@@ -59,4 +62,5 @@ clean:
 	@make -C doc clean
 	@make -C tools clean
 	@make -C user clean
+	@make -C common clean
 	rm -rf $(OUTPUT) $(OUTPUT).iso $(FILE_SYSTEM)

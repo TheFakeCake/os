@@ -1,8 +1,7 @@
 #include "gdt.h"
 
 #include "x86.h"
-#include "string.h"
-#include "task.h"
+#include "../common/string.h"
 #include "pfs.h"
 
 #include "io.h"

@@ -2,6 +2,7 @@
 #define _ULIB_H_
 
 #include "../common/types.h"
+#include "../common/string.h"
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /// \struct __attribute__((packed)) file_iterator_t
@@ -44,11 +45,8 @@ int exec(char *filename);
 void exit();
 
 //Fonctions sur les chaînes de caractères :
-uint strlen(char *s);
 uint atoi(char *s);
 char* itoa(int value, char *str, int base);
-int strcmp(char * str1, char * str2);
-void split(char* str, char c, char* tab_str, int nb_str, int size_str);
 
 //Fonctions d'entrées/sorties :
 int getc();

@@ -8,7 +8,7 @@
 #ifndef _STRING_H_
 #define _STRING_H_
 
-#include "../common/types.h"
+#include "types.h"
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /// \fn void *memset(void *dst, int value, uint count)
@@ -59,5 +59,10 @@ extern void *memcpy(void *dst, void *src, uint32_t count);
 //////////////////////////////////////////////////////////////////////////////////////////
 extern int strncmp(const char *p, const char *q, uint32_t n);
 
-#endif
+extern int strcmp(const char *str1, const char *str2);
 
+extern uint32_t strlen(const char *str);
+
+extern void split(char* str, char c, char* tab_str, int nb_str, int size_str);
+
+#endif

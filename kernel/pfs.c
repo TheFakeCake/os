@@ -9,7 +9,7 @@
 #include "pfs.h"
 
 #include "ide.h"
-#include "string.h"
+#include "../common/string.h"
 #include "io.h"
 
 //////////////////////////////////// STATIC GLOBALS //////////////////////////////////////

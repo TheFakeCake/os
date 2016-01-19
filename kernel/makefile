@@ -6,7 +6,7 @@ CFLAGS=-std=gnu99 -m32 -fno-builtin -ffreestanding -Wall -Wextra -c
 
 MODE=normal
 
-OBJS=bootloader.o kernel.o gdt.o gdt_asm.o string.o periph.o io.o idt.o idt_asm.o pic.o keyboard.o timer.o ide.o pfs.o syscall.o syscall_asm.o task_asm.o
+OBJS=bootloader.o kernel.o gdt.o gdt_asm.o ../common/string.o periph.o io.o idt.o idt_asm.o pic.o keyboard.o timer.o ide.o pfs.o syscall.o syscall_asm.o task_asm.o
 KERNEL_DEPENDENCIES=
 
 ifeq ($(MODE), test)
@@ -23,7 +23,7 @@ kernel.elf: $(OBJS)
 bootloader.o: bootloader.s
 	$(ASMC) $< -o $@ $(ASMFLAGS)
 
-gdt.o: gdt.c gdt.h ../common/types.h x86.h string.h task.h task_asm.s pfs.h
+gdt.o: gdt.c gdt.h ../common/types.h x86.h ../common/string.h task.h task_asm.s pfs.h
 	$(CC) $< -o $@ $(CFLAGS)
 
 gdt_asm.o: gdt_asm.s const.inc
@@ -32,8 +32,8 @@ gdt_asm.o: gdt_asm.s const.inc
 kernel.o: kernel.c kernel.h idt.h gdt.h io.h pic.h timer.h x86.h keyboard.h ../common/types.h pfs.h $(KERNEL_DEPENDENCIES)
 	$(CC) $< -o $@ $(CFLAGS)
 
-string.o: string.c string.h ../common/types.h
-	$(CC) $< -o $@ $(CFLAGS)
+../common/string.o:
+	@make -C ../common string.o
 
 keyboard.o: keyboard.c keyboard.h periph.h io.h x86.h ../common/types.h
 	$(CC) $< -o $@ $(CFLAGS)
@@ -62,7 +62,7 @@ pic.o: pic.c pic.h periph.h
 ide.o: ide.c ide.h periph.h
 	$(CC) $< -o $@ $(CFLAGS)
 
-pfs.o: pfs.c pfs.h ide.h string.h ../common/types.h io.h
+pfs.o: pfs.c pfs.h ide.h ../common/string.h ../common/types.h io.h
 	$(CC) $< -o $@ $(CFLAGS)
 
 syscall.o: syscall.c ../common/types.h ../common/syscall_nb.h io.h keyboard.h pfs.h timer.h

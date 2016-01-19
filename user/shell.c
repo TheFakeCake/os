@@ -61,7 +61,7 @@ void main()
                 else
                 {
                     char data[st.size];
-                    read_file(tab_args[1], data);
+                    read_file(tab_args[1], (uint8_t*)data);
                     puts(data);
                     puts("\n");
                 }

@@ -195,6 +195,6 @@ void printScreen(char* fileName)
 
     char data[st.size];
 
-    read_file(fileName, data);
+    read_file(fileName, (uint8_t*)data);
     puts(data);
 }
