@@ -1,0 +1,26 @@
+config_interface: wx
+display_library: wx
+romimage: file=/usr/share/bochs/BIOS-bochs-latest
+cpu: count=1, ips=50000000, reset_on_triple_fault=1, msrs="msrs.def"
+memory: guest=512, host=256
+vgaromimage: file=/usr/share/vgabios/vgabios.bin
+vga: extension=vbe
+ata0: enabled=1, ioaddr1=0x1f0, ioaddr2=0x3f0, irq=14
+ata1: enabled=1, ioaddr1=0x170, ioaddr2=0x370, irq=15
+ata0-master: type=disk, path=file_system.img, mode=flat, cylinders=90, heads=2, spt=16
+ata0-slave: type=cdrom, path=build.iso, status=inserted
+boot: cdrom
+log: /dev/stdout
+panic: action=report
+error: action=report
+info: action=report
+debug: action=ignore
+debugger_log: -
+sb16: midimode=1, midi=/dev/midi00, wavemode=1, wave=/dev/dsp, loglevel=2, log=/dev/stdout, dmatimer=600000
+vga_update_interval: 300000
+keyboard_serial_delay: 250
+keyboard_paste_delay: 100000
+mouse: enabled=0
+private_colormap: enabled=0
+i440fxsupport: enabled=1
+
