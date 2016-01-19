@@ -159,7 +159,14 @@ void gets(char* buffer)
     int indexbuffer = 0;
     while((buffer[indexbuffer] = getc()) != '\n')
     {
+        if((buffer[indexbuffer] == '\b' && indexbuffer == 0) || (buffer[indexbuffer] == '\t'))
+        {
+            buffer[indexbuffer] = 0;
+            continue;
+        }
+
         putc(buffer[indexbuffer]);
+
         if(buffer[indexbuffer] == '\b' && indexbuffer != 0)
         {
             buffer[indexbuffer] = 0;
