@@ -1,5 +1,6 @@
 extern main
 global entrypoint
+global exit
 
 section .entrypoint
 align 4
@@ -7,6 +8,7 @@ align 4
 entrypoint:
     mov     [stack_ptr],esp
     call    main
+exit:
     mov     esp,[stack_ptr]
     iret
 

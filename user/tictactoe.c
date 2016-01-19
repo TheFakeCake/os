@@ -44,7 +44,6 @@ void main()
                 clear_display();
                 set_cursor(0, 0);
                 exit();
-                return 1;
             }
         }
 
@@ -65,7 +64,6 @@ void main()
                     clear_display();
                     set_cursor(0,0);
                     exit();
-                    return 1;
                 }
                 if(c == 'r')
                 {
@@ -90,7 +88,6 @@ void main()
                 if (c == 'q')
                 {
                     exit();
-                    return 1;
                 }
                 if(c == 'r')
                 {
@@ -125,7 +122,7 @@ void printGame(int * jeu)
                 break;
             case 1:
                 putc('O');
-                break; 
+                break;
             case 2:
                 putc('X');
                 break;

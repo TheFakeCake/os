@@ -42,7 +42,7 @@ int get_next_file(char *filename, file_iterator_t *it);
 
 //Fonctions de contrôle de processus (tâche) :
 int exec(char *filename);
-void exit();
+extern void exit();
 
 //Fonctions sur les chaînes de caractères :
 uint atoi(char *s);

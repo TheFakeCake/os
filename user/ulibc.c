@@ -32,11 +32,6 @@ int get_next_file(char *filename, file_iterator_t *it)
 int exec(char *filename)
 {
 	return syscall(SYSCALL_EXEC, (uint32_t) filename, 0, 0, 0);
-	//TODO a vérifier
-}
-void exit()
-{
-	//TODO
 }
 
 //Fonctions sur les chaînes de caractères :
