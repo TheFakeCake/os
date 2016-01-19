@@ -26,7 +26,6 @@ $(OUTPUT)/boot/grub:
 
 $(FILE_SYSTEM): tools user
 	cp user/shell shell
-	cp user/shell2 shell2
 	cp user/tictactoe tictactoe
 	cp user/tictactoejeu.txt tictactoejeu.txt
 	cp user/tictactoeacueil.txt tictactoeacueil.txt
@@ -37,7 +36,6 @@ $(FILE_SYSTEM): tools user
 	tools/pfsadd $@ tictactoeacueil.txt
 	tools/pfsadd $@ tictactoejeu.txt
 	rm shell
-	rm shell2
 	rm tictactoe
 	rm tictactoejeu.txt
 	rm tictactoeacueil.txt
