@@ -6,7 +6,7 @@ CFLAGS=-std=gnu99 -m32 -fno-builtin -ffreestanding -Wall -Wextra -c
 
 MODE=normal
 
-OBJS=bootloader.o kernel.o gdt.o gdt_asm.o ../common/string.o periph.o io.o idt.o idt_asm.o pic.o keyboard.o timer.o ide.o pfs.o syscall.o syscall_asm.o task_asm.o
+OBJS=bootloader.o kernel.o gdt.o gdt_asm.o ../common/string.o ../common/common_io.o periph.o io.o idt.o idt_asm.o pic.o keyboard.o timer.o ide.o pfs.o syscall.o syscall_asm.o task_asm.o
 KERNEL_DEPENDENCIES=
 
 ifeq ($(MODE), test)
@@ -44,7 +44,7 @@ timer.o: timer.c timer.h ../common/types.h x86.h periph.h
 periph.o: periph.s periph.h ../common/types.h
 	$(ASMC) $< -o $@ $(ASMFLAGS)
 
-io.o: io.c io.h ../common/types.h periph.h
+io.o: io.c io.h ../common/types.h periph.h ../common/string.h ../common/common_io.h
 	$(CC) $< -o $@ $(CFLAGS)
 
 test.o: test.c test.h io.h periph.h keyboard.h ../common/types.h pfs.h timer.h
@@ -73,6 +73,9 @@ syscall_asm.o: syscall_asm.s
 
 task_asm.o: task_asm.s
 	$(ASMC) $< -o $@ $(ASMFLAGS)
+
+../common/common_io.o:
+	@make -C ../common common_io.o
 
 clean:
 	rm -f *.o kernel.elf

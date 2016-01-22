@@ -65,4 +65,8 @@ extern uint32_t strlen(const char *str);
 
 extern void split(char* str, char c, char* tab_str, int nb_str, int size_str);
 
+extern int atoi(char *s);
+
+extern char* itoa(int value, char *str, int base);
+
 #endif

@@ -8,13 +8,13 @@ CFLAGS=-std=gnu99 -m32 -fno-builtin -ffreestanding -Wall -Wextra -c
 
 all: shell shell2 tictactoe
 
-shell: shell.o ulibc.o syscall.o app_stub.o ../common/string.o
+shell: shell.o ulibc.o syscall.o app_stub.o ../common/string.o ../common/common_io.o
 	ld $^ -o $@ -Tapp.ld -melf_i386
 
-tictactoe: tictactoe.o ulibc.o syscall.o app_stub.o
+tictactoe: tictactoe.o ulibc.o syscall.o app_stub.o ../common/string.o ../common/common_io.o
 	ld $^ -o $@ -Tapp.ld -melf_i386
 
-ulibc.o: ulibc.c ulibc.h ../common/types.h ../common/syscall_nb.h ../common/string.h
+ulibc.o: ulibc.c ulibc.h ../common/types.h ../common/syscall_nb.h ../common/string.h ../common/common_io.h
 	$(CC) $< -o $@ -c $(CFLAGS)
 
 shell.o: shell.c ulibc.h ../common/string.h
@@ -31,6 +31,9 @@ app_stub.o: app_stub.s
 
 ../common/string.o:
 	@make -C ../common string.o
+
+../common/common_io.o:
+	@make -C ../common common_io.o
 
 clean:
 	rm -f *.o shell

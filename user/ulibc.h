@@ -44,10 +44,6 @@ int get_next_file(char *filename, file_iterator_t *it);
 int exec(char *filename);
 extern void exit();
 
-//Fonctions sur les chaînes de caractères :
-uint atoi(char *s);
-char* itoa(int value, char *str, int base);
-
 //Fonctions d'entrées/sorties :
 int getc();
 void gets(char* buffer);

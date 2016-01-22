@@ -9,6 +9,7 @@
 
 #include "io.h"
 #include "periph.h"
+#include "../common/common_io.h"
 
 //////////////////////////////////// STATIC GLOBALS //////////////////////////////////////
 
@@ -234,50 +235,5 @@ void print_hex(uint32_t n)
 
 void printf(char *frmt, ...)
 {
-    // Pointer to the current argument
-    uint32_t *args = (uint32_t*)(&frmt) + 1;
-
-    // Prints the format string
-    while (*frmt != '\0')
-    {
-        // If a format code is found
-        if (*frmt == '%')
-        {
-            frmt++;
-            switch (*frmt)
-            {
-            case '%': // Escapes the % character
-                print_char('%');
-                break;
-
-            case 'c': // Inserts a character
-                print_char(*((char*)args));
-                args++;
-                break;
-
-            case 's': // Inserts a string
-                print_str(*((char**)args));
-                args++;
-                break;
-
-            case 'd': // Inserts a signed integer
-                print_int(*((int*)args));
-                args++;
-                break;
-
-            case 'x': // Inserts an unsigned hexadecimal integer
-                print_hex(*((int*)args));
-                args++;
-                break;
-
-            default:
-                break;
-            }
-        }
-        else
-        {
-            print_char(*frmt);
-        }
-        frmt++;
-    }
+    __genericPrintFormat(print_char, print_str, &frmt);
 }

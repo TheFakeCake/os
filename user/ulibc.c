@@ -1,6 +1,7 @@
 #include "ulibc.h"
 
 #include "../common/syscall_nb.h"
+#include "../common/common_io.h"
 
 extern int syscall(uint32_t nb, uint32_t arg1, uint32_t arg2, uint32_t arg3, uint32_t arg4);
 
@@ -32,68 +33,6 @@ int get_next_file(char *filename, file_iterator_t *it)
 int exec(char *filename)
 {
 	return syscall(SYSCALL_EXEC, (uint32_t) filename, 0, 0, 0);
-}
-
-//Fonctions sur les chaînes de caractères :
-uint atoi(char *s)
-{
-	uint res = 0;
-	uint i = 0;
-
-	if(s[0] == '-')
-	{
-		i = 1;
-	}
-
-    for (; s[i] != '\0'; ++i)
-        res = res*10 + s[i] - '0';
-
-  	if(s[0] == '-')
-  	{
-  		res = -res;
-  	}
-    return res;
-}
-
-char* itoa(int value, char *str, int base)
-{
-	// Do not handle bases that are not between 2 and 36 included
-	if (base < 2 || base > 36)
-	{
-		str[0] = '\0';
-	}
-	// If base 10, check the sign
-	else if (base == 10 && value < 0)
-    {
-		str[0] = '-';
-		itoa(-value, str + 1, base);
-	}
-    else
-    {
-		int digits[32];
-		int cursor = 0;
-
-		do {
-			digits[cursor++] = value % base;
-			value /= base;
-		} while (value > 0);
-
-
-		*(str + cursor--) = '\0';
-
-		for (char *strCursor = str; cursor >= 0; strCursor++, cursor--)
-		{
-			if (digits[cursor] < 10)
-			{
-				*strCursor = 48 + digits[cursor];
-			}
-			else
-			{
-				*strCursor = 55 + digits[cursor];
-			}
-		}
-	}
-	return str;
 }
 
 //Fonctions d'entrées/sorties :
@@ -139,60 +78,7 @@ void puts(char *str)
 }
 void printf(char *frmt, ...)
 {
-	// Pointer to the current argument
-    uint32_t *args = (uint32_t*)(&frmt) + 1;
-
-	// Buffer for itoa
-	char buffer[33];
-
-    // Prints the format string
-    while (*frmt != '\0')
-    {
-        // If a format code is found
-        if (*frmt == '%')
-        {
-            frmt++;
-            switch (*frmt)
-            {
-            case '%': // Escapes the % character
-                putc('%');
-                break;
-
-            case 'c': // Inserts a character
-                putc(*((char*)args));
-                args++;
-                break;
-
-            case 's': // Inserts a string
-                puts(*((char**)args));
-                args++;
-                break;
-
-			case 'o': // Inserts an unsigned octal integer
-                puts(itoa(*((int*)args), buffer, 8));
-                args++;
-                break;
-
-            case 'd': // Inserts a signed integer
-                puts(itoa(*((int*)args), buffer, 10));
-                args++;
-                break;
-
-            case 'x': // Inserts an unsigned hexadecimal integer
-				puts(itoa(*((int*)args), buffer, 16));
-                args++;
-                break;
-
-            default:
-                break;
-            }
-        }
-        else
-        {
-            putc(*frmt);
-        }
-        frmt++;
-    }
+	__genericPrintFormat(putc, puts, &frmt);
 }
 
 void clear_display()
