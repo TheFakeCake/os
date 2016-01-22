@@ -34,27 +34,27 @@ typedef struct __attribute__((packed))
 } stat_t;
 
 //Fonctions d'accès aux fichiers
-int read_file(char *filename, uchar *buf);
-int get_stat(char *filename, stat_t *stat);
-int remove_file(char *filename);
-file_iterator_t get_file_iterator();
-int get_next_file(char *filename, file_iterator_t *it);
+extern int read_file(char *filename, uchar *buf);
+extern int get_stat(char *filename, stat_t *stat);
+extern int remove_file(char *filename);
+extern file_iterator_t get_file_iterator();
+extern int get_next_file(char *filename, file_iterator_t *it);
 
 //Fonctions de contrôle de processus (tâche) :
-int exec(char *filename);
+extern int exec(char *filename);
 extern void exit();
 
 //Fonctions d'entrées/sorties :
-int getc();
-void gets(char* buffer);
-void putc(char c);
-void puts(char *str);
-void printf(char *frmt, ...);
-void clear_display();
-void set_cursor(int ligne, int colonne);
+extern int getc();
+extern void gets(char* buffer);
+extern void putc(char c);
+extern void puts(char *str);
+extern void printf(char *frmt, ...);
+extern void clear_display();
+extern void set_cursor(int ligne, int colonne);
 
 //Fonctions liées au temps :
-void sleep(uint ms);
-uint get_ticks();
+extern void sleep(uint ms);
+extern uint get_ticks();
 
 #endif
