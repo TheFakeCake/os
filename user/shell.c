@@ -1,3 +1,14 @@
+//////////////////////////////////////////////////////////////////////////////////////////
+/// \file shell.c
+/// \author Benjamin Ganty
+/// \author Gérôme Pasquier
+/// \date 22 janvier 2015
+/// \brief Shell program for the Operating System.
+///
+/// This program is run as a task in "user" mode after the kernel is initialized.
+/// The Shell waits for user inputs and interprets them.
+//////////////////////////////////////////////////////////////////////////////////////////
+
 #include "ulibc.h"
 
 #define BUFFER_SIZE 512
@@ -5,7 +16,7 @@
 int get_nb_args(char* str);
 void print_help();
 
-
+//////////////////////////////////////////////////////////////////////////////////////////
 void main()
 {
     char bufferInput[BUFFER_SIZE];
@@ -13,17 +24,18 @@ void main()
     while(true)
     {
         printf("[ shell ] $ ");
-        //Lecture des entrees
+        // Lecture des entrees
         gets(bufferInput);
 
-        //Split des argments entre
+        // Split des argments entre
         int nb_args = get_nb_args(bufferInput);
         char tab_args[nb_args][BUFFER_SIZE];
         split(bufferInput, ' ', (char*)tab_args, nb_args, BUFFER_SIZE);
 
-        if(strcmp(tab_args[0], "ls"))
+        // ls command
+        if (strcmp(tab_args[0], "ls"))
         {
-            if(nb_args != 1)
+            if (nb_args != 1)
             {
                 puts("Erreur d'arguments\n");
                 puts("ls : liste tous les fichiers du systeme de fichiers\n");
@@ -42,11 +54,10 @@ void main()
             continue;
         }
 
-
-
-        if(strcmp(tab_args[0], "cat"))
+        // cat command
+        if (strcmp(tab_args[0], "cat"))
         {
-            if(nb_args != 2)
+            if (nb_args != 2)
             {
                 puts("Erreur d'arguments\n");
                 puts("cat <file> : affiche le contenu du fichier file\n");
@@ -54,7 +65,7 @@ void main()
             else
             {
                 stat_t st;
-                if(get_stat(tab_args[1], &st) == -1)
+                if (get_stat(tab_args[1], &st) == -1)
                 {
                     printf("Le fichier %s n'existe pas\n", tab_args[1]);
                 }
@@ -69,9 +80,8 @@ void main()
             continue;
         }
 
-
-
-        if(strcmp(tab_args[0], "rm"))
+        // rm command
+        if (strcmp(tab_args[0], "rm"))
         {
             if(nb_args != 2)
             {
@@ -88,9 +98,8 @@ void main()
             continue;
         }
 
-
-
-        if(strcmp(tab_args[0], "run"))
+        // run command
+        if (strcmp(tab_args[0], "run"))
         {
             if(nb_args != 2)
             {
@@ -104,9 +113,8 @@ void main()
             continue;
         }
 
-
-
-        if(strcmp(tab_args[0], "ticks"))
+        // ticks command
+        if (strcmp(tab_args[0], "ticks"))
         {
             if(nb_args != 1)
             {
@@ -120,9 +128,8 @@ void main()
             continue;
         }
 
-
-
-        if(strcmp(tab_args[0], "sleep"))
+        // sleep command
+        if (strcmp(tab_args[0], "sleep"))
         {
             if(nb_args != 2)
             {
@@ -136,9 +143,8 @@ void main()
             continue;
         }
 
-
-
-        if(strcmp(tab_args[0], "exit"))
+        // exit command
+        if (strcmp(tab_args[0], "exit"))
         {
             if(nb_args != 1)
             {
@@ -152,9 +158,8 @@ void main()
             continue;
         }
 
-
-
-        if(strcmp(tab_args[0], "help"))
+        // help command
+        if (strcmp(tab_args[0], "help"))
         {
             print_help();
             continue;
@@ -162,8 +167,7 @@ void main()
     }
 }
 
-
-
+//////////////////////////////////////////////////////////////////////////////////////////
 void print_help()
 {
     puts("ls : liste tous les fichiers du systeme de fichiers\n");
@@ -176,11 +180,13 @@ void print_help()
     puts("help : affiche la liste des commandes disponibles\n");
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////
 int get_nb_args(char* args)
 {
     int i = 0;
     int nb_args;
-    if(args[0] == '\n')
+
+    if (args[0] == '\n')
     {
     	nb_args = 0;
     }
@@ -188,9 +194,10 @@ int get_nb_args(char* args)
     {
     	nb_args = 1;
     }
-    while(args[i] != 0)
+
+    while (args[i] != 0)
     {
-        if(args[i] == ' ')
+        if (args[i] == ' ')
         {
             nb_args++;
         }

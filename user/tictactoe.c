@@ -1,3 +1,13 @@
+//////////////////////////////////////////////////////////////////////////////////////////
+/// \file tictactoe.c
+/// \author Benjamin Ganty
+/// \author Gérôme Pasquier
+/// \date 22 janvier 2015
+/// \brief Tictactoe game.
+///
+/// This program is a game of Tictactoe for 2 players.
+//////////////////////////////////////////////////////////////////////////////////////////
+
 #include "ulibc.h"
 
 #define BUFFER_SIZE 512
@@ -10,7 +20,7 @@ int joueurSuivant(int joueur);
 void printScore(int* score);
 void printScreen(char* fileName);
 
-
+//////////////////////////////////////////////////////////////////////////////////////////
 void main()
 {
     printScreen("tictactoeacueil.txt");
@@ -83,7 +93,7 @@ void main()
             }
         }
 
-        //Si fin du jeux sur une egalite => réinitialiser le jeux 
+        //Si fin du jeux sur une egalite => réinitialiser le jeux
         if(nb_coup == 9)
         {
             set_cursor(23, 3);
@@ -109,12 +119,11 @@ void main()
             }
         }
 
-
         joueur = joueurSuivant(joueur);
-
     }
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////
 void printGame(int * jeu)
 {
     int ligne = 8, colonne = 26;
@@ -136,6 +145,7 @@ void printGame(int * jeu)
     }
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////
 int verifieGagner(int * jeu)
 {
     for (int i = 0; i < 3; ++i)
@@ -156,10 +166,11 @@ int verifieGagner(int * jeu)
     return 0;
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////
 int placerPion(int position, int * jeu, int joueur)
 {
-    position = position -1;
-    if(jeu[position]==0)
+    position = position - 1;
+    if (jeu[position]==0)
     {
         jeu[position] = joueur;
         return 0;
@@ -170,14 +181,17 @@ int placerPion(int position, int * jeu, int joueur)
     }
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////
 int joueurSuivant(int joueur)
 {
-    if(joueur ==1)
+    if (joueur == 1)
+    {
         return 2;
-    else
-        return 1;
+    }
+    return 1;
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////
 void printScore(int* score)
 {
     set_cursor(12, 58);
@@ -186,18 +200,14 @@ void printScore(int* score)
     printf("%d", score[2]);
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////
 void printScreen(char* fileName)
 {
-
     stat_t st;
-
     clear_display();
     set_cursor(0, 0);
-
     get_stat(fileName, &st);
-
     char data[st.size];
-
     read_file(fileName, (uint8_t*)data);
     puts(data);
 }
