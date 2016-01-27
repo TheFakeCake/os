@@ -1,3 +1,11 @@
+//////////////////////////////////////////////////////////////////////////////////////////
+/// \file ulibc.h
+/// \author Benjamin Ganty
+/// \author Gérôme Pasquier
+/// \date 22 janvier 2015
+/// \brief Declarations of the ulibc functions.
+//////////////////////////////////////////////////////////////////////////////////////////
+
 #ifndef _ULIB_H_
 #define _ULIB_H_
 
@@ -33,18 +41,18 @@ typedef struct __attribute__((packed))
     uint32_t size;
 } stat_t;
 
-//Fonctions d'accès aux fichiers
+// Fonctions d'accès aux fichiers
 extern int read_file(char *filename, uchar *buf);
 extern int get_stat(char *filename, stat_t *stat);
 extern int remove_file(char *filename);
 extern file_iterator_t get_file_iterator();
 extern int get_next_file(char *filename, file_iterator_t *it);
 
-//Fonctions de contrôle de processus (tâche) :
+// Fonctions de contrôle de processus (tâche) :
 extern int exec(char *filename);
 extern void exit();
 
-//Fonctions d'entrées/sorties :
+// Fonctions d'entrées/sorties :
 extern int getc();
 extern unsigned int gets(char *buffer, unsigned int bufferSize);
 extern void putc(char c);
@@ -53,7 +61,7 @@ extern void printf(char *frmt, ...);
 extern void clear_display();
 extern void set_cursor(int ligne, int colonne);
 
-//Fonctions liées au temps :
+// Fonctions liées au temps :
 extern void sleep(uint ms);
 extern uint get_ticks();
 
