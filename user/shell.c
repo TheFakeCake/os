@@ -108,7 +108,17 @@ void main()
             }
             else
             {
-                exec(tab_args[1]);
+                switch (exec(tab_args[1]))
+                {
+                case -1:
+                    puts("Erreur : Le nombre maximum de tache en cours est ateint\n");
+                    break;
+                case -2:
+                    printf("Erreur : Le fichier %s n'existe pas\n", tab_args[1]);
+                    break;
+                default:
+                    break;
+                }
             }
             continue;
         }

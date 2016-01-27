@@ -93,7 +93,7 @@ int exec_task(char *fileName)
 	// Copying the user program into the task memory
 	if (file_read(fileName, (uint32_t*)tasks[i].memory) == -1)
 	{
-		return -1;
+		return -2;
 	}
 
 	// Starting the task
