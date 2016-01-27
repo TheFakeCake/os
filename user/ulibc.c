@@ -41,31 +41,50 @@ int getc()
 	return syscall(SYSCALL_GETC, 0, 0, 0, 0);
 }
 
-void gets(char* buffer)
+//////////////////////////////////////////////////////////////////////////////////////////
+unsigned int gets(char *buffer, unsigned int bufferSize)
 {
-    int indexbuffer = 0;
-    while((buffer[indexbuffer] = getc()) != '\n')
+	char input;
+    unsigned int bufferCursor = 0;
+
+	// Wait for a character input while the buffer isn't full and RETURN isn't pressed
+    while (bufferCursor < bufferSize - 1 && (input = getc()) != '\n')
     {
-        if((buffer[indexbuffer] == '\b' && indexbuffer == 0) || (buffer[indexbuffer] == '\t'))
+		// Ignore tab character and
+        if (input == '\t')
         {
-            buffer[indexbuffer] = 0;
             continue;
         }
 
-        putc(buffer[indexbuffer]);
-
-        if(buffer[indexbuffer] == '\b' && indexbuffer != 0)
+		// If backspace is pressed
+        if (input == '\b')
         {
-            buffer[indexbuffer] = 0;
-            indexbuffer--;
+			// Don't remove character if none was entered
+			if (bufferCursor == 0)
+			{
+				continue;
+			}
+			else
+			{
+	            bufferCursor--;
+			}
         }
         else
         {
-        indexbuffer++;
+        	buffer[bufferCursor++] = input;
         }
+
+		putc(input);
     }
-    buffer[indexbuffer] = 0;
-    putc('\n');
+
+	// Print the new line
+	putc('\n');
+
+	// Add the end of string character
+    buffer[bufferCursor] = 0;
+
+	// Return the number of entered characters
+	return bufferCursor;
 }
 
 void putc(char c)

@@ -46,7 +46,7 @@ extern void exit();
 
 //Fonctions d'entrées/sorties :
 extern int getc();
-extern void gets(char* buffer);
+extern unsigned int gets(char *buffer, unsigned int bufferSize);
 extern void putc(char c);
 extern void puts(char *str);
 extern void printf(char *frmt, ...);

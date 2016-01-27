@@ -25,7 +25,7 @@ void main()
     {
         printf("[ shell ] $ ");
         // Lecture des entrees
-        gets(bufferInput);
+        gets(bufferInput, BUFFER_SIZE);
 
         // Split des argments entre
         int nb_args = get_nb_args(bufferInput);
